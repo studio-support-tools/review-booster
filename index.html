@@ -4,131 +4,1503 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Heeeeat! 口コミ作成サポート</title>
+
 <style>
-:root{--brand:#f28c28;--dark:#d06f12;--bg:#fff9f4;--card:#fff;--text:#262626;--muted:#6d7280;--border:#eadfd4;--soft:#fff0e1;--success:#22784d;--danger:#b42318}
+:root{
+  --brand:#f28c28;
+  --dark:#d06f12;
+  --bg:#fff9f4;
+  --card:#fff;
+  --text:#262626;
+  --muted:#6d7280;
+  --border:#eadfd4;
+  --soft:#fff0e1;
+  --success:#22784d;
+  --danger:#b42318;
+}
+
 *{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text)}
-.wrap{max-width:720px;margin:auto;padding:18px 14px 48px}
-.hero,.card{background:var(--card);border-radius:22px;box-shadow:0 8px 24px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04)}
-.hero{padding:24px 18px;text-align:center}
-.logo{display:inline-flex;width:76px;height:76px;border-radius:20px;align-items:center;justify-content:center;background:var(--brand);color:#fff;font-weight:800;font-size:24px;margin-bottom:12px}
-h1{margin:0;font-size:24px;line-height:1.45}
-.lead{color:var(--muted);font-size:14px;line-height:1.75;margin:10px 0 0}
-.privacy{display:inline-block;margin-top:14px;padding:7px 11px;border-radius:999px;background:#eef8f2;color:var(--success);font-size:12px}
-.card{margin-top:14px;padding:18px}
-.title{margin:0 0 6px;font-size:17px;font-weight:750}
-.note{margin:0 0 12px;color:var(--muted);font-size:12px}
-.stars{display:flex;justify-content:center;gap:7px}
-.star{border:0;background:transparent;color:#d8d8d8;font-size:38px;cursor:pointer;padding:0 2px}
-.star.on{color:#f3b43a}
-.chips{display:flex;flex-wrap:wrap;gap:9px}
-.chip{border:1px solid var(--border);background:#fff;border-radius:999px;padding:10px 13px;cursor:pointer;font-size:14px}
-.chip.selected{background:var(--soft);border-color:var(--brand);color:#81420d;font-weight:700}
-textarea{width:100%;min-height:96px;border:1px solid var(--border);border-radius:14px;padding:13px;font:inherit;resize:vertical}
-.btn{width:100%;border:0;border-radius:14px;padding:15px 16px;font-size:16px;font-weight:750;cursor:pointer;margin-top:12px}
-.primary{background:var(--brand);color:#fff}.primary:hover{background:var(--dark)}
-.secondary{background:#fff;color:var(--dark);border:1px solid var(--brand)}
-.error,.success{min-height:22px;text-align:center;font-size:13px;margin-top:9px}.error{color:var(--danger)}.success{color:var(--success);font-weight:700}
-.result{display:none}.review{min-height:150px;padding:15px;border:1px solid #efd3b6;border-radius:14px;background:#fffdfa;white-space:pre-wrap;line-height:1.8}
-.meta{display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:12px}
-.loading{display:none;text-align:center;color:var(--muted);margin-top:14px}
-.bar{height:10px;border-radius:999px;background:#f1e7dc;overflow:hidden;margin-top:9px}.bar span{display:block;height:100%;width:0;background:var(--brand);transition:width .4s}
-footer{margin-top:22px;text-align:center;color:var(--muted);font-size:11px;line-height:1.7}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.wrap{
+  max-width:720px;
+  margin:auto;
+  padding:18px 14px 48px;
+}
+
+.hero,.card{
+  background:var(--card);
+  border-radius:22px;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+  border:1px solid rgba(0,0,0,.04);
+}
+
+.hero{
+  padding:24px 18px;
+  text-align:center;
+}
+
+.logo{
+  display:inline-flex;
+  width:76px;
+  height:76px;
+  border-radius:20px;
+  align-items:center;
+  justify-content:center;
+  background:var(--brand);
+  color:#fff;
+  font-weight:800;
+  font-size:24px;
+  margin-bottom:12px;
+}
+
+h1{
+  margin:0;
+  font-size:24px;
+  line-height:1.45;
+}
+
+.lead{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.75;
+  margin:10px 0 0;
+}
+
+.privacy{
+  display:inline-block;
+  margin-top:14px;
+  padding:7px 11px;
+  border-radius:999px;
+  background:#eef8f2;
+  color:var(--success);
+  font-size:12px;
+}
+
+.card{
+  margin-top:14px;
+  padding:18px;
+}
+
+.title{
+  margin:0 0 6px;
+  font-size:17px;
+  font-weight:750;
+}
+
+.note{
+  margin:0 0 12px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.stars{
+  display:flex;
+  justify-content:center;
+  gap:7px;
+  margin-top:12px;
+}
+
+.star{
+  border:0;
+  background:transparent;
+  color:#d8d8d8;
+  font-size:42px;
+  cursor:pointer;
+  padding:0 2px;
+  transition:.15s;
+}
+
+.star:hover{
+  transform:scale(1.08);
+}
+
+.star.on{
+  color:#f3b43a;
+}
+
+.rating-label{
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  margin-top:8px;
+  min-height:20px;
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.chip{
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:999px;
+  padding:10px 13px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.chip.selected{
+  background:var(--soft);
+  border-color:var(--brand);
+  color:#81420d;
+  font-weight:700;
+}
+
+textarea{
+  width:100%;
+  min-height:96px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:13px;
+  font:inherit;
+  resize:vertical;
+}
+
+.btn{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:15px 16px;
+  font-size:16px;
+  font-weight:750;
+  cursor:pointer;
+  margin-top:12px;
+}
+
+.primary{
+  background:var(--brand);
+  color:#fff;
+}
+
+.primary:hover{
+  background:var(--dark);
+}
+
+.secondary{
+  background:#fff;
+  color:var(--dark);
+  border:1px solid var(--brand);
+}
+
+.error,.success{
+  min-height:22px;
+  text-align:center;
+  font-size:13px;
+  margin-top:9px;
+}
+
+.error{color:var(--danger)}
+
+.success{
+  color:var(--success);
+  font-weight:700;
+}
+
+.result{
+  display:none;
+}
+
+.review{
+  min-height:150px;
+  padding:15px;
+  border:1px solid #efd3b6;
+  border-radius:14px;
+  background:#fffdfa;
+  white-space:pre-wrap;
+  line-height:1.8;
+}
+
+.meta{
+  display:flex;
+  justify-content:space-between;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.loading{
+  display:none;
+  text-align:center;
+  color:var(--muted);
+  margin-top:14px;
+}
+
+.bar{
+  height:10px;
+  border-radius:999px;
+  background:#f1e7dc;
+  overflow:hidden;
+  margin-top:9px;
+}
+
+.bar span{
+  display:block;
+  height:100%;
+  width:0;
+  background:var(--brand);
+  transition:width .4s;
+}
+
+#positiveFlow,
+#feedbackFlow{
+  display:none;
+}
+
+.feedback-box{
+  text-align:center;
+  padding:10px 4px;
+}
+
+.feedback-icon{
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  background:#fff0e1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 14px;
+  font-size:28px;
+}
+
+.feedback-box h2{
+  margin:0 0 10px;
+  font-size:20px;
+}
+
+.feedback-box p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.8;
+  margin:0;
+}
+
+.feedback-note{
+  background:#fff9f4;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:13px;
+  margin-top:14px;
+  text-align:left;
+  font-size:13px;
+  line-height:1.7;
+}
+
+footer{
+  margin-top:22px;
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.7;
+}
 </style>
 </head>
+
 <body>
+
 <main class="wrap">
+
 <section class="hero">
+
 <div class="logo">H!</div>
-<h1>Heeeeat!伏見桃山<br>口コミ作成サポート</h1>
-<p class="lead">当てはまる項目を選ぶだけで、自然な口コミ文の下書きを作れます。<br>内容をご自身で確認・修正してからご投稿ください。</p>
-<div class="privacy">入力内容は保存・送信されません</div>
+
+<h1>
+Heeeeat!伏見桃山<br>
+お客様満足度アンケート
+</h1>
+
+<p class="lead">
+ご利用いただきありがとうございます。<br>
+まずは今回のご体験について、満足度を教えてください。
+</p>
+
+<div class="privacy">
+入力内容は保存・送信されません
+</div>
+
 </section>
 
-<section class="card"><h2 class="title">満足度を教えてください</h2><div id="stars" class="stars"></div></section>
-<div id="questions"></div>
+
+<!-- 満足度 -->
+<section class="card">
+
+<h2 class="title">
+今回の満足度を教えてください
+</h2>
+
+<p class="note">
+星をタップしてください
+</p>
+
+<div id="stars" class="stars"></div>
+
+<div id="ratingLabel" class="rating-label">
+未選択
+</div>
+
+</section>
+
+
+<!-- ★1〜3 -->
+<div id="feedbackFlow">
 
 <section class="card">
-<h2 class="title">特に印象に残ったこと</h2>
-<p class="note">任意入力です。口コミ文へ自然に加えます。</p>
-<textarea id="freeText" placeholder="例：スタッフの声かけが励みになり、安心して取り組めました"></textarea>
+
+<div class="feedback-box">
+
+<div class="feedback-icon">💬</div>
+
+<h2>
+ご回答ありがとうございます
+</h2>
+
+<p>
+今回のご体験についてお聞かせいただき、ありがとうございます。
+</p>
+
+<div class="feedback-note">
+今後、よりご満足いただけるサービスをご提供できるよう、
+スタッフ一同サービス向上に努めてまいります。
+</div>
+
+</div>
+
 </section>
 
-<button id="generateBtn" class="btn primary">口コミ文を作成する</button>
-<div id="loading" class="loading">口コミ文を作成しています…<div class="bar"><span id="barFill"></span></div></div>
+</div>
+
+
+<!-- ★4〜5 -->
+<div id="positiveFlow">
+
+<div id="questions"></div>
+
+
+<section class="card">
+
+<h2 class="title">
+特に印象に残ったこと
+</h2>
+
+<p class="note">
+任意入力です。口コミ文へ自然に加えます。
+</p>
+
+<textarea
+id="freeText"
+placeholder="例：スタッフの声かけが励みになり、安心して取り組めました"
+></textarea>
+
+</section>
+
+
+<button id="generateBtn" class="btn primary">
+口コミ文を作成する
+</button>
+
+<div id="loading" class="loading">
+
+口コミ文を作成しています…
+
+<div class="bar">
+<span id="barFill"></span>
+</div>
+
+</div>
+
 <div id="error" class="error"></div>
 
+
 <section id="resultCard" class="card result">
-<h2 class="title">口コミ文の下書き</h2>
-<div id="reviewText" class="review" contenteditable="true"></div>
-<div class="meta"><span>自由に編集できます</span><span id="charCount">0文字</span></div>
-<button id="regenBtn" class="btn secondary">別の文章を作る</button>
-<button id="copyBtn" class="btn primary">文章をコピー</button>
+
+<h2 class="title">
+口コミ文の下書き
+</h2>
+
+<p class="note">
+下書きを確認して、実際のご感想に合わせて自由に修正してください。
+</p>
+
+<div
+id="reviewText"
+class="review"
+contenteditable="true">
+</div>
+
+<div class="meta">
+
+<span>
+自由に編集できます
+</span>
+
+<span id="charCount">
+0文字
+</span>
+
+</div>
+
+
+<button id="regenBtn" class="btn secondary">
+別の文章を作る
+</button>
+
+
+<button id="copyBtn" class="btn primary">
+文章をコピー
+</button>
+
 <div id="copyMessage" class="success"></div>
-<button id="googleBtn" class="btn primary">Google口コミ画面を開く</button>
+
+
+<button id="googleBtn" class="btn primary">
+Google口コミ画面を開く
+</button>
+
 </section>
 
-<footer>このページは口コミ文作成の補助ツールです。<br>入力内容や生成文は外部へ送信・保存されません。</footer>
+</div>
+
+
+<footer>
+
+このページは口コミ文作成の補助ツールです。<br>
+投稿内容はご自身で確認・修正のうえご利用ください。<br>
+入力内容や生成文は外部へ送信・保存されません。
+
+</footer>
+
 </main>
 
+
 <script>
-const GOOGLE_REVIEW_URL="https://www.google.com/search?q=Heeeeat%21+伏見桃山";
+
+/* ========================================
+   Google口コミURL
+======================================== */
+
+const GOOGLE_REVIEW_URL =
+"https://www.google.com/search?q=Heeeeat%21+伏見桃山";
+
+
+/* ========================================
+   質問項目
+======================================== */
 
 const categories=[
-{id:"program",name:"今回体験したプログラム",required:true,max:2,items:[
-["program_machine","マシンピラティス"],["program_mat","マットピラティス"],["program_trx","TRX"],["program_boxing","ボクササイズ"],["program_conditioning","コンディショニング"]
-]},
-{id:"purpose",name:"体験した目的",max:2,items:[
-["purpose_diet","ダイエット"],["purpose_posture","姿勢改善"],["purpose_shoulder","肩こり改善"],["purpose_back","腰痛改善"],["purpose_exercise","運動不足解消"],["purpose_health","健康維持"],["purpose_bodymake","ボディメイク"],["purpose_strength","筋力アップ"],["purpose_flexibility","柔軟性アップ"],["purpose_habit","運動習慣をつけたい"]
-]},
-{id:"experience",name:"体験について",max:4,items:[
-["first_safe","初めてでも安心できた"],["easy_explain","説明が分かりやすかった"],["customized","一人ひとりに合わせてもらえた"],["fun","楽しく参加できた"],["beginner","運動初心者でも取り組みやすかった"],["not_left","置いていかれる感じがなかった"],["pace","無理のないペースでできた"],["challenge","程よくやりがいがあった"]
-]},
-{id:"lesson",name:"レッスン内容",max:4,items:[
-["form_check","フォームを丁寧に見てもらえた"],["body_use","身体の使い方が分かった"],["load_adjust","負荷を調整してもらえた"],["variation","メニューにバリエーションがあった"],["not_boring","同じ内容ばかりでなく飽きなかった"],["full_body","全身をしっかり動かせた"],["stretch","程よく身体を伸ばせた"],["achievement","達成感があった"],["support_machine","マシンの補助で動きやすかった"]
-]},
-{id:"staff",name:"インストラクター・スタジオ",max:4,items:[
-["staff_kind","スタッフが優しかった"],["staff_friendly","フレンドリーで話しやすかった"],["staff_positive","ポジティブな声かけが励みになった"],["staff_individual","一人ひとりをしっかり見てくれた"],["staff_share","スタッフ間で情報共有されていた"],["staff_question","質問しやすかった"],["staff_knowledge","専門的な知識も教えてもらえた"],["atmosphere","アットホームな雰囲気だった"],["clean","清潔感があった"],["small_group","少人数で安心できた"],["access","立地が良く通いやすかった"],["reservation","予約しやすかった"]
-]},
-{id:"change",name:"感じた変化",max:4,items:[
-["lighter","身体が軽くなった"],["shoulder_relief","肩こりが楽になった"],["back_relief","腰が楽になった"],["posture","姿勢を意識できた"],["mobility","可動域が広がった気がした"],["stretch_feel","身体が伸びてすっきりした"],["inner","インナーマッスルを意識できた"],["muscle_use","普段使わない筋肉を使えた"],["refresh","リフレッシュできた"],["fatigue","心地よい疲労感があった"],["body_change","身体の変化を感じられた"]
-]},
-{id:"appeal",name:"Heeeeat!の魅力",max:4,items:[
-["appeal_personal","一人ひとりに寄り添ってくれる"],["appeal_fun","楽しく続けやすい"],["appeal_beginner","初心者でも始めやすい"],["appeal_variety","プログラムが豊富で飽きにくい"],["appeal_mix","鍛えることと身体を整えることの両方ができる"],["appeal_habit","運動習慣をつけやすい"],["appeal_group","周りの人と一緒に頑張れる"],["appeal_measure","体組成計で変化を確認できる"],["appeal_price","料金が適正だと感じた"],["appeal_long","長く通いたいと思える"],["appeal_easy","通うハードルが低い"]
-]},
-{id:"future",name:"今後について",max:2,items:[
-["future_continue","続けて通いたい"],["future_habit","運動を習慣にしたい"],["future_change","身体をもっと変えたい"],["future_diet","ダイエットを頑張りたい"],["future_posture","姿勢改善を目指したい"],["future_health","健康維持のために続けたい"],["future_again","また受けたい"],["future_recommend","友人にも勧めたい"],["future_family","家族にも勧めたい"]
-]}];
+
+
+{
+id:"program",
+name:"今回体験したプログラム",
+required:true,
+max:2,
+items:[
+
+["program_machine","マシンピラティス"],
+["program_mat","マットピラティス"],
+["program_trx","TRX"],
+["program_boxing","ボクササイズ"],
+["program_conditioning","コンディショニング"]
+
+]
+},
+
+
+{
+id:"purpose",
+name:"体験した目的",
+max:2,
+items:[
+
+["purpose_diet","ダイエット"],
+["purpose_posture","姿勢改善"],
+["purpose_shoulder","肩こり改善"],
+["purpose_back","腰痛改善"],
+["purpose_exercise","運動不足解消"],
+["purpose_health","健康維持"],
+["purpose_bodymake","ボディメイク"],
+["purpose_strength","筋力アップ"],
+["purpose_flexibility","柔軟性アップ"],
+["purpose_habit","運動習慣をつけたい"]
+
+]
+},
+
+
+{
+id:"experience",
+name:"体験について",
+max:4,
+items:[
+
+["first_safe","初めてでも安心できた"],
+["easy_explain","説明が分かりやすかった"],
+["customized","一人ひとりに合わせてもらえた"],
+["fun","楽しく参加できた"],
+["beginner","運動初心者でも取り組みやすかった"],
+["not_left","置いていかれる感じがなかった"],
+["pace","無理のないペースでできた"],
+["challenge","程よくやりがいがあった"]
+
+]
+},
+
+
+{
+id:"lesson",
+name:"レッスン内容",
+max:4,
+items:[
+
+["form_check","フォームを丁寧に見てもらえた"],
+["body_use","身体の使い方が分かった"],
+["load_adjust","負荷を調整してもらえた"],
+["variation","メニューにバリエーションがあった"],
+["not_boring","同じ内容ばかりでなく飽きなかった"],
+["full_body","全身をしっかり動かせた"],
+["stretch","程よく身体を伸ばせた"],
+["achievement","達成感があった"],
+["support_machine","マシンの補助で動きやすかった"]
+
+]
+},
+
+
+{
+id:"staff",
+name:"インストラクター・スタジオ",
+max:4,
+items:[
+
+["staff_kind","スタッフが優しかった"],
+["staff_friendly","フレンドリーで話しやすかった"],
+["staff_positive","ポジティブな声かけが励みになった"],
+["staff_individual","一人ひとりをしっかり見てくれた"],
+["staff_share","スタッフ間で情報共有されていた"],
+["staff_question","質問しやすかった"],
+["staff_knowledge","専門的な知識も教えてもらえた"],
+["atmosphere","アットホームな雰囲気だった"],
+["clean","清潔感があった"],
+["small_group","少人数で安心できた"],
+["access","立地が良く通いやすかった"],
+["reservation","予約しやすかった"]
+
+]
+},
+
+
+{
+id:"change",
+name:"感じた変化",
+max:4,
+items:[
+
+["lighter","身体が軽くなった"],
+["shoulder_relief","肩こりが楽になった"],
+["back_relief","腰が楽になった"],
+["posture","姿勢を意識できた"],
+["mobility","可動域が広がった気がした"],
+["stretch_feel","身体が伸びてすっきりした"],
+["inner","インナーマッスルを意識できた"],
+["muscle_use","普段使わない筋肉を使えた"],
+["refresh","リフレッシュできた"],
+["fatigue","心地よい疲労感があった"],
+["body_change","身体の変化を感じられた"]
+
+]
+},
+
+
+{
+id:"appeal",
+name:"Heeeeat!の魅力",
+max:4,
+items:[
+
+["appeal_personal","一人ひとりに寄り添ってくれる"],
+["appeal_fun","楽しく続けやすい"],
+["appeal_beginner","初心者でも始めやすい"],
+["appeal_variety","プログラムが豊富で飽きにくい"],
+["appeal_mix","鍛えることと身体を整えることの両方ができる"],
+["appeal_habit","運動習慣をつけやすい"],
+["appeal_group","周りの人と一緒に頑張れる"],
+["appeal_measure","体組成計で変化を確認できる"],
+["appeal_price","料金が適正だと感じた"],
+["appeal_long","長く通いたいと思える"],
+["appeal_easy","通うハードルが低い"]
+
+]
+},
+
+
+{
+id:"future",
+name:"今後について",
+max:2,
+items:[
+
+["future_continue","続けて通いたい"],
+["future_habit","運動を習慣にしたい"],
+["future_change","身体をもっと変えたい"],
+["future_diet","ダイエットを頑張りたい"],
+["future_posture","姿勢改善を目指したい"],
+["future_health","健康維持のために続けたい"],
+["future_again","また受けたい"],
+["future_recommend","友人にも勧めたい"],
+["future_family","家族にも勧めたい"]
+
+]
+}
+
+];
+
+
+/* ========================================
+   口コミ文章パーツ
+======================================== */
 
 const phrases={
-program_machine:["今回はマシンピラティスを体験しました。","マシンピラティスの体験レッスンに参加しました。"],
-program_mat:["今回はマットピラティスを体験しました。","マットピラティスのレッスンに参加しました。"],
-program_trx:["今回はTRXを体験しました。"],program_boxing:["今回はボクササイズを体験しました。"],program_conditioning:["今回はコンディショニングを体験しました。"],
-purpose_diet:["ダイエットを目的に参加しました。"],purpose_posture:["姿勢改善を目的に参加しました。"],purpose_shoulder:["肩こりが気になり参加しました。"],purpose_back:["腰の不調が気になり参加しました。"],purpose_exercise:["運動不足を解消したくて参加しました。"],purpose_health:["健康維持のために参加しました。"],purpose_bodymake:["ボディメイクを目的に参加しました。"],purpose_strength:["筋力をつけたくて参加しました。"],purpose_flexibility:["柔軟性を高めたくて参加しました。"],purpose_habit:["運動習慣をつけたくて参加しました。"],
-first_safe:["初めてでも安心して参加できました。"],easy_explain:["説明が丁寧で分かりやすかったです。"],customized:["身体の状態に合わせて進めてもらえました。"],fun:["楽しみながら身体を動かせました。"],beginner:["運動初心者でも無理なく取り組めました。"],not_left:["置いていかれることなく自分のペースで進められました。"],pace:["無理のないペースで最後まで取り組めました。"],challenge:["程よくやりがいがありました。"],
-form_check:["フォームを丁寧に確認してもらえました。"],body_use:["身体の使い方が少しずつ分かりました。"],load_adjust:["その日の状態に合わせて負荷を調整してもらえました。"],variation:["メニューに変化があり毎回新鮮でした。"],not_boring:["同じことの繰り返しではなく飽きずに取り組めました。"],full_body:["全身をしっかり動かせました。"],stretch:["身体を程よく伸ばせました。"],achievement:["終わった後に達成感がありました。"],support_machine:["マシンの補助があるので動きやすかったです。"],
-staff_kind:["スタッフの方が優しく丁寧でした。"],staff_friendly:["フレンドリーで話しやすい雰囲気でした。"],staff_positive:["ポジティブな声かけが励みになりました。"],staff_individual:["一人ひとりをしっかり見てもらえました。"],staff_share:["スタッフ間で身体の状態が共有されていて安心でした。"],staff_question:["分からないことをすぐに質問できました。"],staff_knowledge:["身体の使い方について専門的な話も聞けました。"],atmosphere:["アットホームで居心地の良い雰囲気でした。"],clean:["スタジオは清潔感がありました。"],small_group:["少人数なので安心して参加できました。"],access:["立地が良く通いやすいと感じました。"],reservation:["予約が取りやすく便利でした。"],
-lighter:["終わった後は身体が軽く感じました。"],shoulder_relief:["運動後は肩まわりが楽になりました。"],back_relief:["終わった後は腰まわりが楽になりました。"],posture:["日常の姿勢を意識するきっかけになりました。"],mobility:["身体の可動域が広がったように感じました。"],stretch_feel:["身体が伸びてすっきりしました。"],inner:["インナーマッスルを意識して動けました。"],muscle_use:["普段使えていない筋肉を使えました。"],refresh:["身体も気分もすっきりしました。"],fatigue:["心地よい疲労感がありました。"],body_change:["身体の変化を感じられました。"],
-appeal_personal:["一人ひとりに寄り添ってもらえるのが魅力だと思いました。"],appeal_fun:["楽しく続けられる雰囲気が魅力でした。"],appeal_beginner:["初心者でも始めやすいスタジオだと思いました。"],appeal_variety:["プログラムが豊富で飽きずに通えそうです。"],appeal_mix:["鍛えることと身体を整えることの両方ができるのが良かったです。"],appeal_habit:["無理なく運動習慣をつけられそうです。"],appeal_group:["周りの方と一緒に頑張れるのが良かったです。"],appeal_measure:["体組成計で変化を確認できるのが良かったです。"],appeal_price:["内容に対して料金も適正だと感じました。"],appeal_long:["長く通いたいと思える場所でした。"],appeal_easy:["運動することへのハードルが下がりました。"],
-future_continue:["これからも続けて通いたいです。"],future_habit:["運動を生活の一部にしていきたいです。"],future_change:["これからさらに身体が変わるのが楽しみです。"],future_diet:["ダイエットも引き続き頑張りたいです。"],future_posture:["姿勢改善を目指して続けたいです。"],future_health:["健康維持のために続けたいです。"],future_again:["またレッスンを受けたいです。"],future_recommend:["友人にもおすすめしたいです。"],future_family:["家族にも勧めたいと思いました。"]};
+
+program_machine:[
+"今回はマシンピラティスを体験しました。",
+"マシンピラティスの体験レッスンに参加しました。"
+],
+
+program_mat:[
+"今回はマットピラティスを体験しました。",
+"マットピラティスのレッスンに参加しました。"
+],
+
+program_trx:[
+"今回はTRXを体験しました。"
+],
+
+program_boxing:[
+"今回はボクササイズを体験しました。"
+],
+
+program_conditioning:[
+"今回はコンディショニングを体験しました。"
+],
+
+
+purpose_diet:[
+"ダイエットを目的に参加しました。"
+],
+
+purpose_posture:[
+"姿勢改善を目的に参加しました。"
+],
+
+purpose_shoulder:[
+"肩こりが気になり参加しました。"
+],
+
+purpose_back:[
+"腰まわりが気になり参加しました。"
+],
+
+purpose_exercise:[
+"運動不足を解消したくて参加しました。"
+],
+
+purpose_health:[
+"健康維持のために参加しました。"
+],
+
+purpose_bodymake:[
+"ボディメイクを目的に参加しました。"
+],
+
+purpose_strength:[
+"筋力をつけたくて参加しました。"
+],
+
+purpose_flexibility:[
+"柔軟性を高めたくて参加しました。"
+],
+
+purpose_habit:[
+"運動習慣をつけたくて参加しました。"
+],
+
+
+first_safe:[
+"初めてでも安心して参加できました。",
+"初めての体験でしたが、不安なく取り組めました。"
+],
+
+easy_explain:[
+"説明が丁寧で分かりやすかったです。",
+"動きのポイントも分かりやすく教えてもらえました。"
+],
+
+customized:[
+"身体の状態に合わせて進めてもらえました。",
+"自分に合った無理のない内容で取り組めました。"
+],
+
+fun:[
+"楽しみながら身体を動かせました。",
+"楽しく取り組めたので時間があっという間でした。"
+],
+
+beginner:[
+"運動初心者でも無理なく取り組めました。"
+],
+
+not_left:[
+"置いていかれることなく、自分のペースで進められました。"
+],
+
+pace:[
+"無理のないペースで最後まで取り組めました。"
+],
+
+challenge:[
+"程よくやりがいがあり、終わった後には達成感もありました。"
+],
+
+
+form_check:[
+"フォームを丁寧に確認してもらえました。"
+],
+
+body_use:[
+"身体の使い方が少しずつ分かりました。"
+],
+
+load_adjust:[
+"その日の状態に合わせて負荷を調整してもらえました。"
+],
+
+variation:[
+"メニューに変化があり、いろいろな動きを楽しめました。"
+],
+
+not_boring:[
+"同じことの繰り返しではなく、飽きずに取り組めました。"
+],
+
+full_body:[
+"全身をしっかり動かすことができました。"
+],
+
+stretch:[
+"身体を程よく伸ばすことができて気持ち良かったです。"
+],
+
+achievement:[
+"終わった後にしっかり達成感がありました。"
+],
+
+support_machine:[
+"マシンのサポートがあるので動きやすかったです。"
+],
+
+
+staff_kind:[
+"スタッフの方が優しく丁寧でした。",
+"インストラクターの方が丁寧で安心感がありました。"
+],
+
+staff_friendly:[
+"フレンドリーで話しやすい雰囲気でした。"
+],
+
+staff_positive:[
+"ポジティブな声かけが励みになりました。"
+],
+
+staff_individual:[
+"一人ひとりをしっかり見てもらえるのが良かったです。"
+],
+
+staff_share:[
+"スタッフ間で身体の状態が共有されていて安心でした。"
+],
+
+staff_question:[
+"分からないことも質問しやすかったです。"
+],
+
+staff_knowledge:[
+"身体の使い方について専門的なことも分かりやすく教えてもらえました。"
+],
+
+atmosphere:[
+"アットホームで居心地の良い雰囲気でした。"
+],
+
+clean:[
+"スタジオは清潔感があり、気持ちよく利用できました。"
+],
+
+small_group:[
+"少人数なのでしっかり見てもらえて安心でした。"
+],
+
+access:[
+"立地も良く、通いやすいと感じました。"
+],
+
+reservation:[
+"予約もしやすく、通いやすそうだと感じました。"
+],
+
+
+lighter:[
+"終わった後は身体が軽く感じました。"
+],
+
+shoulder_relief:[
+"レッスン後は肩まわりがすっきりしたように感じました。"
+],
+
+back_relief:[
+"終わった後は腰まわりが楽になったように感じました。"
+],
+
+posture:[
+"普段の姿勢を意識するきっかけになりました。"
+],
+
+mobility:[
+"身体が動かしやすくなったように感じました。"
+],
+
+stretch_feel:[
+"身体がしっかり伸びて、終わった後はすっきりしました。"
+],
+
+inner:[
+"インナーマッスルを意識して動くことができました。"
+],
+
+muscle_use:[
+"普段使えていない筋肉を使っている感覚がありました。"
+],
+
+refresh:[
+"身体だけでなく気分もリフレッシュできました。"
+],
+
+fatigue:[
+"終わった後には心地よい疲労感がありました。"
+],
+
+body_change:[
+"続けることで身体の変化も期待できそうだと感じました。"
+],
+
+
+appeal_personal:[
+"一人ひとりに寄り添ってもらえるところがHeeeeat!の魅力だと思いました。"
+],
+
+appeal_fun:[
+"楽しく続けられる雰囲気が魅力だと感じました。"
+],
+
+appeal_beginner:[
+"初心者でも始めやすいスタジオだと思いました。"
+],
+
+appeal_variety:[
+"いろいろなプログラムがあるので、飽きずに続けられそうです。"
+],
+
+appeal_mix:[
+"身体を鍛えるだけでなく、整えることもできるのが良かったです。"
+],
+
+appeal_habit:[
+"無理なく運動習慣をつけられそうな環境だと感じました。"
+],
+
+appeal_group:[
+"周りの方と一緒に頑張れる雰囲気も良かったです。"
+],
+
+appeal_measure:[
+"体組成計で変化を確認できるところも良いと思いました。"
+],
+
+appeal_price:[
+"内容を考えると料金にも納得感がありました。"
+],
+
+appeal_long:[
+"長く通いたいと思える雰囲気でした。"
+],
+
+appeal_easy:[
+"運動へのハードルが下がり、これなら続けられそうだと思いました。"
+],
+
+
+future_continue:[
+"これからも続けて通いたいです。"
+],
+
+future_habit:[
+"これをきっかけに運動を生活の一部にしていきたいです。"
+],
+
+future_change:[
+"これからさらに身体が変わっていくのが楽しみです。"
+],
+
+future_diet:[
+"ダイエットも引き続き頑張りたいです。"
+],
+
+future_posture:[
+"姿勢改善を目指して続けていきたいです。"
+],
+
+future_health:[
+"健康維持のためにも続けていきたいです。"
+],
+
+future_again:[
+"またレッスンを受けたいです。"
+],
+
+future_recommend:[
+"運動を始めたい友人にもおすすめしたいと思いました。"
+],
+
+future_family:[
+"家族にも勧めたいと思いました。"
+]
+
+};
+
+
+/* ========================================
+   星評価
+======================================== */
 
 let rating=0;
+
 const stars=document.getElementById("stars");
-for(let i=1;i<=5;i++){const b=document.createElement("button");b.className="star";b.textContent="★";b.onclick=()=>{rating=i;[...stars.children].forEach((x,j)=>x.classList.toggle("on",j<i))};stars.appendChild(b)}
+const ratingLabel=document.getElementById("ratingLabel");
+
+const ratingLabels={
+1:"★1",
+2:"★2",
+3:"★3",
+4:"★4",
+5:"★5"
+};
+
+for(let i=1;i<=5;i++){
+
+const b=document.createElement("button");
+
+b.className="star";
+b.textContent="★";
+b.setAttribute("aria-label",i+"つ星");
+
+b.onclick=()=>{
+
+rating=i;
+
+[...stars.children].forEach((x,j)=>{
+x.classList.toggle("on",j<i);
+});
+
+ratingLabel.textContent=ratingLabels[i];
+
+handleRating(i);
+
+};
+
+stars.appendChild(b);
+
+}
+
+
+/* ========================================
+   評価による画面分岐
+======================================== */
+
+function handleRating(value){
+
+const positive=document.getElementById("positiveFlow");
+const feedback=document.getElementById("feedbackFlow");
+const result=document.getElementById("resultCard");
+
+result.style.display="none";
+
+document.getElementById("error").textContent="";
+document.getElementById("copyMessage").textContent="";
+
+if(value>=4){
+
+feedback.style.display="none";
+positive.style.display="block";
+
+setTimeout(()=>{
+positive.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+},100);
+
+}else{
+
+positive.style.display="none";
+feedback.style.display="block";
+
+setTimeout(()=>{
+feedback.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+},100);
+
+}
+
+}
+
+
+/* ========================================
+   質問生成
+======================================== */
 
 const q=document.getElementById("questions");
-categories.forEach(cat=>{const s=document.createElement("section");s.className="card";const h=document.createElement("h2");h.className="title";h.textContent=cat.name+(cat.required?"（必須）":"");s.appendChild(h);const n=document.createElement("p");n.className="note";n.textContent="最大"+cat.max+"つまで選択";s.appendChild(n);const c=document.createElement("div");c.className="chips";cat.items.forEach(([id,label])=>{const b=document.createElement("button");b.className="chip";b.textContent=label;b.dataset.id=id;b.onclick=()=>{const selected=c.querySelectorAll(".selected");if(!b.classList.contains("selected")&&selected.length>=cat.max)return;b.classList.toggle("selected")};c.appendChild(b)});s.appendChild(c);q.appendChild(s)});
 
-function selected(){return[...document.querySelectorAll(".chip.selected")].map(x=>x.dataset.id)}
-function pick(a){return a[Math.floor(Math.random()*a.length)]}
-function build(){const ids=selected();const p=ids.find(x=>x.startsWith("program_"));if(!p)throw Error("体験したプログラムを選択してください。");if(ids.length<4)throw Error("感想項目を合計4つ以上選択してください。");const end=ids.filter(x=>x.startsWith("future_"));const body=ids.filter(x=>!x.startsWith("program_")&&!x.startsWith("purpose_")&&!x.startsWith("future_"));let parts=[pick(phrases[p])];const purpose=ids.find(x=>x.startsWith("purpose_"));if(purpose)parts.push(pick(phrases[purpose]));body.sort(()=>Math.random()-.5).slice(0,4).forEach(x=>parts.push(pick(phrases[x])));const free=document.getElementById("freeText").value.trim();if(free)parts.push(/[。！？!?]$/.test(free)?free:free+"。");if(end.length)parts.push(pick(phrases[pick(end)]));return parts.join("")}
-function update(){document.getElementById("charCount").textContent=document.getElementById("reviewText").innerText.trim().length+"文字"}
+categories.forEach(cat=>{
 
-document.getElementById("generateBtn").onclick=()=>{document.getElementById("error").textContent="";try{const l=document.getElementById("loading"),f=document.getElementById("barFill");l.style.display="block";f.style.width="30%";setTimeout(()=>f.style.width="75%",250);setTimeout(()=>{document.getElementById("reviewText").textContent=build();f.style.width="100%";setTimeout(()=>{l.style.display="none";document.getElementById("resultCard").style.display="block";update();document.getElementById("resultCard").scrollIntoView({behavior:"smooth"})},200)},650)}catch(e){document.getElementById("loading").style.display="none";document.getElementById("error").textContent=e.message}}
-document.getElementById("regenBtn").onclick=()=>{try{document.getElementById("reviewText").textContent=build();update()}catch(e){document.getElementById("error").textContent=e.message}}
-document.getElementById("reviewText").oninput=update
-document.getElementById("copyBtn").onclick=async()=>{const t=document.getElementById("reviewText").innerText.trim();await navigator.clipboard.writeText(t);document.getElementById("copyMessage").textContent="コピーしました。Google口コミ画面で貼り付けてください。"}
-document.getElementById("googleBtn").onclick=()=>window.open(GOOGLE_REVIEW_URL,"_blank","noopener,noreferrer")
+const s=document.createElement("section");
+s.className="card";
+
+const h=document.createElement("h2");
+
+h.className="title";
+
+h.textContent=
+cat.name+
+(cat.required?"（必須）":"");
+
+s.appendChild(h);
+
+
+const n=document.createElement("p");
+
+n.className="note";
+
+n.textContent=
+"当てはまるものを最大"+
+cat.max+
+"つまで選択";
+
+s.appendChild(n);
+
+
+const c=document.createElement("div");
+
+c.className="chips";
+
+
+cat.items.forEach(([id,label])=>{
+
+const b=document.createElement("button");
+
+b.className="chip";
+
+b.textContent=label;
+
+b.dataset.id=id;
+
+
+b.onclick=()=>{
+
+const selected=
+c.querySelectorAll(".selected");
+
+if(
+!b.classList.contains("selected") &&
+selected.length>=cat.max
+){
+return;
+}
+
+b.classList.toggle("selected");
+
+};
+
+
+c.appendChild(b);
+
+});
+
+
+s.appendChild(c);
+
+q.appendChild(s);
+
+});
+
+
+/* ========================================
+   選択内容取得
+======================================== */
+
+function selected(){
+
+return [
+...document.querySelectorAll(".chip.selected")
+].map(x=>x.dataset.id);
+
+}
+
+
+function pick(a){
+
+return a[
+Math.floor(Math.random()*a.length)
+];
+
+}
+
+
+/* ========================================
+   口コミ生成
+======================================== */
+
+function build(){
+
+const ids=selected();
+
+const p=
+ids.find(x=>x.startsWith("program_"));
+
+
+if(!p){
+
+throw Error(
+"今回体験したプログラムを選択してください。"
+);
+
+}
+
+
+const reviewItems=
+ids.filter(
+x=>!x.startsWith("program_")
+);
+
+
+if(reviewItems.length<3){
+
+throw Error(
+"感想について、合計3つ以上選択してください。"
+);
+
+}
+
+
+const end=
+ids.filter(
+x=>x.startsWith("future_")
+);
+
+
+const body=
+ids.filter(
+x=>
+!x.startsWith("program_") &&
+!x.startsWith("purpose_") &&
+!x.startsWith("future_")
+);
+
+
+let parts=[];
+
+
+/* プログラム */
+
+parts.push(
+pick(phrases[p])
+);
+
+
+/* 目的 */
+
+const purpose=
+ids.find(
+x=>x.startsWith("purpose_")
+);
+
+if(purpose){
+
+parts.push(
+pick(phrases[purpose])
+);
+
+}
+
+
+/* 本文 */
+
+body
+.sort(()=>Math.random()-.5)
+.slice(0,5)
+.forEach(x=>{
+
+if(phrases[x]){
+parts.push(
+pick(phrases[x])
+);
+}
+
+});
+
+
+/* 自由記述 */
+
+const free=
+document
+.getElementById("freeText")
+.value
+.trim();
+
+if(free){
+
+parts.push(
+/[。！？!?]$/.test(free)
+? free
+: free+"。"
+);
+
+}
+
+
+/* 締め */
+
+if(end.length){
+
+const ending=
+pick(end);
+
+if(phrases[ending]){
+
+parts.push(
+pick(phrases[ending])
+);
+
+}
+
+}
+
+
+return parts.join("");
+
+}
+
+
+/* ========================================
+   文字数
+======================================== */
+
+function update(){
+
+document
+.getElementById("charCount")
+.textContent=
+
+document
+.getElementById("reviewText")
+.innerText
+.trim()
+.length
++
+"文字";
+
+}
+
+
+/* ========================================
+   生成ボタン
+======================================== */
+
+document
+.getElementById("generateBtn")
+.onclick=()=>{
+
+document
+.getElementById("error")
+.textContent="";
+
+
+try{
+
+const l=
+document.getElementById("loading");
+
+const f=
+document.getElementById("barFill");
+
+
+l.style.display="block";
+
+f.style.width="25%";
+
+
+setTimeout(
+()=>f.style.width="70%",
+250
+);
+
+
+setTimeout(()=>{
+
+document
+.getElementById("reviewText")
+.textContent=
+build();
+
+f.style.width="100%";
+
+
+setTimeout(()=>{
+
+l.style.display="none";
+
+document
+.getElementById("resultCard")
+.style.display="block";
+
+update();
+
+document
+.getElementById("resultCard")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+},200);
+
+},650);
+
+
+}catch(e){
+
+document
+.getElementById("loading")
+.style.display="none";
+
+document
+.getElementById("error")
+.textContent=e.message;
+
+}
+
+};
+
+
+/* ========================================
+   再生成
+======================================== */
+
+document
+.getElementById("regenBtn")
+.onclick=()=>{
+
+try{
+
+document
+.getElementById("reviewText")
+.textContent=
+build();
+
+update();
+
+}catch(e){
+
+document
+.getElementById("error")
+.textContent=e.message;
+
+}
+
+};
+
+
+/* ========================================
+   編集時文字数
+======================================== */
+
+document
+.getElementById("reviewText")
+.oninput=
+update;
+
+
+/* ========================================
+   コピー
+======================================== */
+
+document
+.getElementById("copyBtn")
+.onclick=async()=>{
+
+const t=
+document
+.getElementById("reviewText")
+.innerText
+.trim();
+
+try{
+
+await navigator.clipboard.writeText(t);
+
+document
+.getElementById("copyMessage")
+.textContent=
+"コピーしました。Google口コミ画面で貼り付けてください。";
+
+}catch(e){
+
+document
+.getElementById("copyMessage")
+.textContent=
+"コピーできませんでした。文章を長押ししてコピーしてください。";
+
+}
+
+};
+
+
+/* ========================================
+   Google口コミ
+======================================== */
+
+document
+.getElementById("googleBtn")
+.onclick=()=>{
+
+window.open(
+GOOGLE_REVIEW_URL,
+"_blank",
+"noopener,noreferrer"
+);
+
+};
+
 </script>
+
 </body>
 </html>
