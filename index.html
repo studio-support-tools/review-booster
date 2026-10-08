@@ -184,6 +184,14 @@ textarea{
 .primary:hover{
   background:var(--dark);
 }
+.btn:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+.star:disabled{
+  cursor:default;
+}
+
 
 .secondary{
   background:#fff;
@@ -343,9 +351,10 @@ Heeeeat!伏見桃山<br>
 
 <div id="stars" class="stars"></div>
 
-<div id="ratingLabel" class="rating-label">
-未選択
-</div>
+<div id="ratingLabel" class="rating-label">未選択</div>
+<button id="confirmRating" class="btn primary" type="button" disabled>
+  満足度を確定する
+</button>
 
 </section>
 
@@ -997,6 +1006,7 @@ future_family:[
 ======================================== */
 
 let rating=0;
+let ratingConfirmed=false;
 
 const stars=document.getElementById("stars");
 const ratingLabel=document.getElementById("ratingLabel");
@@ -1017,24 +1027,50 @@ b.className="star";
 b.textContent="★";
 b.setAttribute("aria-label",i+"つ星");
 
-b.onclick=()=>{
+b.onclick = () => {
+  if(ratingConfirmed) return;
+  rating = i;
 
-rating=i;
+  [...stars.children].forEach((x, j) => {
+    x.classList.toggle("on", j < i);
+  });
 
-[...stars.children].forEach((x,j)=>{
-x.classList.toggle("on",j<i);
-});
+  ratingLabel.textContent = "★" + i;
+  document.getElementById("confirmRating").disabled = false;
 
-ratingLabel.textContent=ratingLabels[i];
-
-handleRating(i);
-
+  // 星の選択時点では次の画面を表示しない
+  document.getElementById("positiveFlow").style.display = "none";
+  document.getElementById("feedbackFlow").style.display = "none";
+  document.getElementById("resultCard").style.display = "none";
 };
-
 stars.appendChild(b);
 
 }
 
+
+/* ========================================
+   満足度確定（確定後は変更不可）
+======================================== */
+
+document.getElementById("confirmRating").onclick = () => {
+  if(ratingConfirmed) return;
+  if(rating === 0){
+    alert("満足度を選択してください");
+    return;
+  }
+
+  ratingConfirmed = true;
+  [...stars.querySelectorAll("button")].forEach(button => {
+    button.disabled = true;
+  });
+
+  const confirmButton = document.getElementById("confirmRating");
+  confirmButton.disabled = true;
+  confirmButton.textContent = "満足度を確定しました";
+  ratingLabel.textContent = "★" + rating + "（確定済み）";
+
+  handleRating(rating);
+};
 
 /* ========================================
    評価による画面分岐
